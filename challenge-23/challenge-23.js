@@ -1,3 +1,6 @@
+(function(window, document){ 
+  'use strict;'
+
 /*
 Vamos desenvolver mais um projeto. A ideia é fazer uma mini-calculadora.
 As regras são:
@@ -23,3 +26,39 @@ multiplicação (x), então no input deve aparecer "1+2x".
 input;
 - Ao pressionar o botão "CE", o input deve ficar zerado.
 */
+  var $visor = document.querySelector('[data-js="visor"]');
+var $buttonaNumber = document.querySelectorAll('[data-js = "button-number"]');
+var $buttonCE = document.querySelector('[data-js ="button-ce"]');
+var $buttonOperation = document.querySelectorAll('[data-js ="button-operation"]');
+
+
+Array.prototype.forEach.call($buttonaNumber, function(button){
+    
+   button.addEventListener('click', handleClickNumber, false);
+    
+});
+
+Array.prototype.forEach.call($buttonOperation, function(button){
+    
+   button.addEventListener('click', handleClickOperation, false);
+    
+});
+
+$buttonCE.addEventListener('click', handleClickCE, false);
+
+function handleClickOperation(){
+    var operations =['+', '-', '*', '/'];
+    if (isLastItemAnOperation(operations))
+        $visor.value = $visor.value.slice(0,-1);
+    $visor.value += this.value;
+}
+
+function handleClickNumber(){
+   $visor.value += this.value;
+}
+
+function handleClickCE(){
+    $visor.value = 0;
+}
+
+  })(window, document);//Fechamento da IIFE
